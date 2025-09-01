@@ -57,7 +57,17 @@ const Index = () => {
             </DialogHeader>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <img src={image} alt={title} className="w-full rounded-lg" />
+                <img src={image} alt={title} className="w-full rounded-lg mb-4" />
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Характеристики дома:</h4>
+                  <div className="text-sm space-y-1">
+                    <p>• Площадь: 120 м²</p>
+                    <p>• Материал стен: кирпич</p>
+                    <p>• Фундамент: ленточный</p>
+                    <p>• Крыша: металлочерепица</p>
+                    <p>• Этажность: 2 этажа</p>
+                  </div>
+                </div>
               </div>
               <div className="space-y-4">
                 <h3 className="font-heading text-xl">Варианты отделки:</h3>
@@ -76,11 +86,18 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <Button className="bg-construction-orange hover:bg-construction-orange/90">
+                  <Button 
+                    className="bg-construction-orange hover:bg-construction-orange/90"
+                    onClick={() => window.open('tel:+74958682717', '_self')}
+                  >
                     <Icon name="Phone" className="mr-2 h-4 w-4" />
                     +7 495 868 27 17
                   </Button>
-                  <Button variant="outline" className="border-green-500 text-green-600 hover:bg-green-50">
+                  <Button 
+                    variant="outline" 
+                    className="border-green-500 text-green-600 hover:bg-green-50"
+                    onClick={() => window.open('https://wa.me/79067311711', '_blank')}
+                  >
                     <Icon name="MessageCircle" className="mr-2 h-4 w-4" />
                     WhatsApp
                   </Button>
@@ -104,6 +121,64 @@ const Index = () => {
       <p className="text-muted-foreground text-sm">{description}</p>
     </Card>
   );
+
+  const ProjectGallery = () => {
+    const [currentImage, setCurrentImage] = useState(0);
+    const workImages = [
+      "/img/b88d5763-1f86-439e-897d-337b6794e3c3.jpg",
+      "/img/b88d5763-1f86-439e-897d-337b6794e3c3.jpg",
+      "/img/b88d5763-1f86-439e-897d-337b6794e3c3.jpg",
+      "/img/b88d5763-1f86-439e-897d-337b6794e3c3.jpg",
+      "/img/b88d5763-1f86-439e-897d-337b6794e3c3.jpg"
+    ];
+
+    const nextImage = () => {
+      setCurrentImage((prev) => (prev + 1) % workImages.length);
+    };
+
+    const prevImage = () => {
+      setCurrentImage((prev) => (prev - 1 + workImages.length) % workImages.length);
+    };
+
+    return (
+      <div className="relative">
+        <div className="relative h-80 overflow-hidden rounded-lg">
+          <img 
+            src={workImages[currentImage]} 
+            alt={`Работа ${currentImage + 1}`}
+            className="w-full h-full object-cover"
+          />
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80"
+            onClick={prevImage}
+          >
+            <Icon name="ChevronLeft" className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80"
+            onClick={nextImage}
+          >
+            <Icon name="ChevronRight" className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="flex justify-center mt-4 space-x-2">
+          {workImages.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full ${
+                index === currentImage ? 'bg-construction-orange' : 'bg-gray-300'
+              }`}
+              onClick={() => setCurrentImage(index)}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   const projects = [
     { title: "Дом из кирпича 120м²", price: "4 500 000 ₽", image: "/img/b88d5763-1f86-439e-897d-337b6794e3c3.jpg" },
@@ -133,7 +208,11 @@ const Index = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => window.open('tel:+74958682717', '_self')}
+                >
                   <Icon name="Phone" className="mr-2 h-4 w-4" />
                   +7 495 868 27 17
                 </Button>
@@ -152,21 +231,37 @@ const Index = () => {
                 </Dialog>
               </div>
               <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm" className="text-green-600">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-green-600"
+                  onClick={() => window.open('https://wa.me/79067311711', '_blank')}
+                >
                   <Icon name="MessageCircle" className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-blue-600">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-blue-600"
+                  onClick={() => window.open('https://t.me/+79067311711', '_blank')}
+                >
                   <Icon name="Send" className="h-4 w-4" />
                 </Button>
               </div>
               <div className="text-sm">
                 <p className="text-muted-foreground">Мы в соцсетях:</p>
-                <div className="flex space-x-2 mt-1">
-                  <Button variant="ghost" size="sm">
+                <div className="flex space-x-1 mt-1">
+                  <Button variant="ghost" size="sm" onClick={() => window.open('https://t.me/birtega', '_blank')}>
                     <Icon name="Send" className="h-3 w-3" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" onClick={() => window.open('https://vk.com/birtega', '_blank')}>
                     <Icon name="Users" className="h-3 w-3" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => window.open('https://dzen.ru/birtega', '_blank')}>
+                    <Icon name="Globe" className="h-3 w-3" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => window.open('https://instagram.com/birtega', '_blank')}>
+                    <Icon name="Camera" className="h-3 w-3" />
                   </Button>
                 </div>
               </div>
@@ -183,7 +278,11 @@ const Index = () => {
                 <div className="space-y-6 mt-8">
                   <div className="text-center">
                     <p className="font-semibold mb-2">Позвоните нам</p>
-                    <Button variant="outline" className="w-full mb-4">
+                    <Button 
+                      variant="outline" 
+                      className="w-full mb-4"
+                      onClick={() => window.open('tel:+74958682717', '_self')}
+                    >
                       <Icon name="Phone" className="mr-2 h-4 w-4" />
                       +7 495 868 27 17
                     </Button>
@@ -205,11 +304,19 @@ const Index = () => {
                   <div className="text-center border-t pt-6">
                     <p className="font-semibold mb-3">Напишите нам</p>
                     <div className="flex justify-center space-x-4">
-                      <Button variant="outline" className="border-green-500 text-green-600">
+                      <Button 
+                        variant="outline" 
+                        className="border-green-500 text-green-600"
+                        onClick={() => window.open('https://wa.me/79067311711', '_blank')}
+                      >
                         <Icon name="MessageCircle" className="mr-2 h-4 w-4" />
                         WhatsApp
                       </Button>
-                      <Button variant="outline" className="border-blue-500 text-blue-600">
+                      <Button 
+                        variant="outline" 
+                        className="border-blue-500 text-blue-600"
+                        onClick={() => window.open('https://t.me/+79067311711', '_blank')}
+                      >
                         <Icon name="Send" className="mr-2 h-4 w-4" />
                         Telegram
                       </Button>
@@ -219,10 +326,10 @@ const Index = () => {
                   <div className="text-center border-t pt-6">
                     <p className="font-semibold mb-3">Подписывайтесь на нас</p>
                     <div className="grid grid-cols-2 gap-2">
-                      <Button variant="outline" size="sm">VK</Button>
-                      <Button variant="outline" size="sm">TG</Button>
-                      <Button variant="outline" size="sm">Дзен</Button>
-                      <Button variant="outline" size="sm">Instagram</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.open('https://vk.com/birtega', '_blank')}>VK</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.open('https://t.me/birtega', '_blank')}>TG</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.open('https://dzen.ru/birtega', '_blank')}>Дзен</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.open('https://instagram.com/birtega', '_blank')}>Instagram</Button>
                     </div>
                   </div>
                 </div>
@@ -304,7 +411,7 @@ const Index = () => {
                     <DialogHeader>
                       <DialogTitle>Советы по выбору проекта и строительству</DialogTitle>
                     </DialogHeader>
-                    <CallbackForm title="Советы по строительству" buttonText="Получить советы" />
+                    <CallbackForm title="Советы по строительству" buttonText="Получить советы по выбору проекта и строительству" />
                   </DialogContent>
                 </Dialog>
               </CardContent>
@@ -325,7 +432,68 @@ const Index = () => {
                     <DialogHeader>
                       <DialogTitle>Скачать каталог ТОП-15 проектов</DialogTitle>
                     </DialogHeader>
-                    <CallbackForm title="Каталог проектов" buttonText="Получить каталог в WhatsApp" />
+                    <CallbackForm title="Каталог проектов" buttonText="Получить каталог в ватсап" />
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery */}
+      <section className="py-20 bg-construction-light">
+        <div className="container mx-auto px-4">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-construction-blue">
+            Фото наших работ
+          </h2>
+          <div className="max-w-4xl mx-auto">
+            <ProjectGallery />
+          </div>
+        </div>
+      </section>
+
+      {/* Consultation and Office Visit */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="text-center p-8">
+              <CardHeader>
+                <CardTitle className="font-heading text-xl mb-4">Записаться на консультацию</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-construction-orange hover:bg-construction-orange/90">
+                      Записаться на консультацию
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Записаться на консультацию</DialogTitle>
+                    </DialogHeader>
+                    <CallbackForm title="Консультация" buttonText="Записаться на консультацию" />
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-8">
+              <CardHeader>
+                <CardTitle className="font-heading text-xl mb-4">Встреча в офисе</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-construction-orange hover:bg-construction-orange/90">
+                      Встреча в офисе
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Встреча в офисе</DialogTitle>
+                    </DialogHeader>
+                    <CallbackForm title="Встреча в офисе" buttonText="Записаться на встречу в офисе" />
                   </DialogContent>
                 </Dialog>
               </CardContent>
@@ -340,26 +508,26 @@ const Index = () => {
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-construction-blue">
             Мы предлагаем
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <FeatureCard 
               icon="MapPin" 
               title="Подбор участка" 
-              description="Бесплатная помощь по подбору участка с выездом инженера и оценкой рисков"
+              description="Бесплатная помощь по подбору участка для будущего строительства с выездом инженера и оценкой рисков строительства"
             />
             <FeatureCard 
               icon="Shield" 
-              title="Гарантия 10 лет" 
-              description="Прописываем в договоре гарантийные обязательства и заключаем договор на обслуживание"
+              title="Гарантия 10 лет на строительство" 
+              description="Прописываем в договоре гарантийные обязательства и заключаем договор на содержание и обслуживание"
             />
             <FeatureCard 
               icon="Lock" 
-              title="Фиксированная стоимость" 
-              description="Фиксируем стоимость строительства в договоре без скрытых платежей"
+              title="Фиксированная стоимость строительства" 
+              description="Фиксируем стоимость строительства в договоре"
             />
             <FeatureCard 
               icon="Eye" 
               title="Технадзор" 
-              description="Бесплатно обеспечим приемку этапов строительства с фото/видеофиксацией"
+              description="Бесплатно обеспечим приемку этапов строительства Технадзором, зафиксируем все скрытые работы фото/видеофиксацией"
             />
             <FeatureCard 
               icon="CreditCard" 
@@ -369,17 +537,22 @@ const Index = () => {
             <FeatureCard 
               icon="Home" 
               title="Поможем получить ипотеку" 
-              description="Поможем оформить ипотеку, в том числе с использованием льготных программ"
+              description="Поможем оформить и получить ипотеку, в том числе с использованием льготных программ и программ с господдержкой"
             />
             <FeatureCard 
               icon="Baby" 
-              title="Материнский капитал" 
+              title="Использование материнского капитала" 
               description="Использование материнского капитала в качестве первоначального взноса"
+            />
+            <FeatureCard 
+              icon="Percent" 
+              title="Скидки на строительные материалы от 10%" 
+              description="Закупаем стройматериалы напрямую у производителей, что даст вам экономию на всех этапах"
             />
             <FeatureCard 
               icon="Camera" 
               title="Контроль строительства" 
-              description="Камеры 24/7 на объекте для полного контроля процесса строительства"
+              description="Камеры 24/7 на объекте"
             />
           </div>
         </div>
@@ -398,7 +571,7 @@ const Index = () => {
               <DialogHeader>
                 <DialogTitle>Оставить заявку</DialogTitle>
               </DialogHeader>
-              <CallbackForm title="Оставить заявку" buttonText="Отправить заявку" />
+              <CallbackForm title="Оставить заявку" buttonText="Оставить заявку" />
             </DialogContent>
           </Dialog>
         </div>
@@ -442,7 +615,11 @@ const Index = () => {
             
             <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
               <div className="flex space-x-4">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-construction-blue">
+                <Button 
+                  variant="outline" 
+                  className="border-white text-white hover:bg-white hover:text-construction-blue"
+                  onClick={() => window.open('tel:+74958682717', '_self')}
+                >
                   <Icon name="Phone" className="mr-2 h-4 w-4" />
                   +7 495 868 27 17
                 </Button>
@@ -462,10 +639,18 @@ const Index = () => {
               </div>
               
               <div className="flex space-x-2">
-                <Button variant="ghost" className="text-green-400 hover:bg-green-400/20">
+                <Button 
+                  variant="ghost" 
+                  className="text-green-400 hover:bg-green-400/20"
+                  onClick={() => window.open('https://wa.me/79067311711', '_blank')}
+                >
                   <Icon name="MessageCircle" className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" className="text-blue-400 hover:bg-blue-400/20">
+                <Button 
+                  variant="ghost" 
+                  className="text-blue-400 hover:bg-blue-400/20"
+                  onClick={() => window.open('https://t.me/+79067311711', '_blank')}
+                >
                   <Icon name="Send" className="h-5 w-5" />
                 </Button>
               </div>
@@ -474,6 +659,36 @@ const Index = () => {
           
           <div className="border-t border-white/20 mt-8 pt-8 text-center text-sm opacity-80">
             <p>&copy; 2024 BIRTEGA. Все права защищены. Строительство домов под ключ в Москве и Московской области.</p>
+            <p className="mt-2">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="text-white underline hover:text-construction-orange transition-colors">
+                    Пользовательское соглашение
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Пользовательское соглашение</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 text-sm">
+                    <h3 className="font-semibold">1. Общие положения</h3>
+                    <p>Настоящее Пользовательское соглашение регулирует отношения между ООО "BIRTEGA" и пользователями сайта при использовании услуг строительства домов под ключ.</p>
+                    
+                    <h3 className="font-semibold">2. Услуги</h3>
+                    <p>Компания предоставляет услуги по строительству домов под ключ в Москве и Московской области, включая проектирование, строительство и отделочные работы.</p>
+                    
+                    <h3 className="font-semibold">3. Обработка персональных данных</h3>
+                    <p>Отправляя заявку через формы на сайте, вы соглашаетесь на обработку персональных данных в соответствии с ФЗ "О персональных данных" №152-ФЗ.</p>
+                    
+                    <h3 className="font-semibold">4. Гарантии</h3>
+                    <p>Компания предоставляет гарантию на строительство сроком 10 лет в соответствии с договором.</p>
+                    
+                    <h3 className="font-semibold">5. Контакты</h3>
+                    <p>ООО "BIRTEGA"<br/>Адрес: г. Москва, ул. Орджоникидзе 11, стр. 42<br/>Телефон: +7 495 868 27 17</p>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </p>
           </div>
         </div>
       </footer>
